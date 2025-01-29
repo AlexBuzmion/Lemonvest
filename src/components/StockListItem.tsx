@@ -1,7 +1,9 @@
 import { View, Text } from "./Themed";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import Colors from "../constants/Colors";
 import { AntDesign } from "@expo/vector-icons";
+import { Link } from "expo-router";
+import { useColorScheme } from './useColorScheme';
 
 export default StockListItem;
 
@@ -14,29 +16,32 @@ type Stock = {
 
 type StockListItemProps = {
     stock: Stock,
-
 }
 
 function StockListItem({stock} : StockListItemProps) {
     const percentChange = Number.parseFloat(stock.percent_change);
     const closeChange = Number.parseFloat(stock.close);
     return (
-        <View style={styles.mainContainer}>
-            <View style={styles.leftContainer}>
-                <Text style= {[styles.symbol]}>
-                    {stock.symbol}{"     "}
-                    <AntDesign name="staro" size={18} color="gray" />
-                </Text>
-                <Text>{stock.name}</Text>
-            </View>
-            <View style={styles.rightContainer}>
-                <Text style={percentChange < 0 ? {color: 'red'} : {color: 'green'}}>
-                    {percentChange > 0 ? '+' : ''}
-                    {percentChange.toFixed(2)}%
-                </Text>
-                <Text>${closeChange.toFixed(2)}</Text>
-            </View>
-        </View>
+        <Link href={`/${stock.symbol}`} asChild>
+            <TouchableOpacity>
+                <View style={styles.mainContainer}>
+                    <View style={styles.leftContainer}>
+                        <Text style= {[styles.symbol]}>
+                            {stock.symbol}{"     "}
+                            <AntDesign name="staro" size={18} color="gray" />
+                        </Text>
+                        <Text>{stock.name}</Text>
+                    </View>
+                    <View style={styles.rightContainer}>
+                        <Text style={percentChange < 0 ? {color: 'red'} : {color: 'green'}}>
+                            {percentChange > 0 ? '+' : ''}
+                            {percentChange.toFixed(2)}%
+                        </Text>
+                        <Text>${closeChange.toFixed(2)}</Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+        </Link>
     );
 }
 
