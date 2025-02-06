@@ -8,8 +8,7 @@ export default StockDetails;
 
 function StockDetails() {
     const {stockdetails} = useLocalSearchParams<{stockdetails: string}>();
-
-    const stock = top5[stockdetails];
+    const stock = top5[stockdetails as keyof typeof top5];
 
     if (!stock) {
         return <Text>Stock {stockdetails} not found</Text>;
@@ -17,9 +16,8 @@ function StockDetails() {
 
     return (
         <View style={{ padding: 10 }}>
-            <Stack.Screen options={{ title: stock.symbol, headerBackTitleVisible: false }} />
+            <Stack.Screen options={{ title: stock.symbol}} />
             <StockListItem stock={stock} />
-            <Text>{stock.name}</Text>
             <StockGraph />
         </View>
     );

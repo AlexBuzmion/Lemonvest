@@ -4,7 +4,8 @@ import Colors from "../constants/Colors";
 import { AntDesign } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { useColorScheme } from './useColorScheme';
-
+import React from "react";
+import { Nunito } from './StyledText';
 export default StockListItem;
 
 type Stock = {
@@ -23,10 +24,10 @@ function StockListItem({stock} : StockListItemProps) {
     const closeChange = Number.parseFloat(stock.close);
     return (
         <Link href={`/${stock.symbol}`} asChild>
-            <TouchableOpacity>
+            <TouchableOpacity style={styles.mainContainer}>
                 <View style={styles.mainContainer}>
                     <View style={styles.leftContainer}>
-                        <Text style= {[styles.symbol]}>
+                        <Text style= {[styles.symbol, ]}>
                             {stock.symbol}{"     "}
                             <AntDesign name="staro" size={18} color="gray" />
                         </Text>
@@ -61,6 +62,7 @@ const styles = StyleSheet.create({
         gap: 5,
     }, 
     rightContainer: {
+        flex: .2,
         alignItems: 'flex-end',
     },
 });
